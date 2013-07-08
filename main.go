@@ -13,6 +13,7 @@ import (
 	"go/token"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
@@ -217,6 +218,15 @@ func checkTypes(args *types.Tuple, types []string) (any, all bool) {
 	return any, true
 }
 
+func sortedKeys(m map[string][]string) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
 func main() {
 	if len(packages) == 0 {
 		fmt.Fprintln(os.Stderr, "Need to specify at least one package to check.")
@@ -265,7 +275,8 @@ func main() {
 		}
 	}
 
-	for path, sigs := range signatures {
+	for _, path := range sortedKeys(signatures) {
+		sigs := signatures[path]
 		fmt.Println(path + ":")
 		for _, sig := range sigs {
 			fmt.Println("\t" + sig)
