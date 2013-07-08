@@ -4,6 +4,7 @@ import (
 	"code.google.com/p/go.tools/go/types"
 	"github.com/kisielk/gotool"
 	"honnef.co/go/importer"
+	"sort"
 
 	"flag"
 	"fmt"
