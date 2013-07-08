@@ -257,7 +257,7 @@ func main() {
 			}
 
 			signatures[fnc.Pkg.Path()] = append(signatures[fnc.Pkg.Path()],
-				fmt.Sprintf("%s%s (%s) (%s)",
+				fmt.Sprintf("%s%s(%s) (%s)",
 					prefix,
 					fnc.Name(),
 					argsToString(sig.Params()),
