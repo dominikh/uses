@@ -35,7 +35,7 @@ var (
 )
 
 func init() {
-	flag.Var(&packages, "packages", "Comma-separated list of packages to search for functions.")
+	flag.Var(&packages, "pkgs", "Comma-separated list of packages to search for functions.")
 	flag.Var(&arguments, "args", "Comma-separated list of argument types to match.")
 	flag.Var(&returns, "rets", "Comma-separated list of return types to match.")
 	flag.BoolVar(&and, "and", false, "Use AND instead of OR for matching functions.")
