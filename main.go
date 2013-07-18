@@ -77,7 +77,7 @@ func NewContext() *Context {
 }
 
 func check(ctx *Context, name string, fset *token.FileSet, astFiles []*ast.File) (pkg *types.Package, err error) {
-	return ctx.context.Check(name, fset, astFiles...)
+	return ctx.context.Check(name, fset, astFiles, nil)
 }
 
 func (ctx *Context) getObjects(paths []string) ([]types.Object, []error) {
