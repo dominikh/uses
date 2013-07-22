@@ -61,14 +61,14 @@ type Type struct {
 
 type Context struct {
 	allImports map[string]*types.Package
-	context    types.Context
+	context    types.Config
 }
 
 func NewContext() *Context {
 	importer := importer.NewImporter()
 	ctx := &Context{
 		allImports: importer.Imports,
-		context: types.Context{
+		context: types.Config{
 			Import: importer.Import,
 		},
 	}
