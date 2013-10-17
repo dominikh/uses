@@ -62,11 +62,14 @@ type Type struct {
 type Context struct {
 	allImports map[string]*types.Package
 	context    types.Config
+	importer   *importer.Importer
 }
 
 func NewContext() *Context {
-	importer := importer.NewImporter()
+	importer := importer.New()
+	importer.Config.UseGcFallback = true
 	ctx := &Context{
+		importer:   importer,
 		allImports: importer.Imports,
 		context: types.Config{
 			Import: importer.Import,
@@ -247,6 +250,13 @@ func main() {
 	ctx := NewContext()
 	funcs, errs := ctx.getFunctions(gotool.ImportPaths(packages))
 	listErrors(errs)
+	if len(ctx.importer.Fallbacks) > 0 {
+		fmt.Fprintln(os.Stderr, "Relying on gc generated data for...")
+		for _, path := range ctx.importer.Fallbacks {
+			fmt.Fprintln(os.Stderr, path)
+		}
+		fmt.Fprintln(os.Stderr)
+	}
 
 	signatures := make(map[string][]string)
 
