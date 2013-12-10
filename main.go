@@ -1,6 +1,7 @@
 package main
 
 import (
+	"code.google.com/p/go.tools/go/gcimporter"
 	"code.google.com/p/go.tools/go/types"
 	"github.com/kisielk/gotool"
 	"honnef.co/go/importer"
@@ -100,7 +101,7 @@ pathLoop:
 		if buildPkg.Goroot {
 			// TODO what if the compiled package in GoRoot is
 			// outdated?
-			pkg, err = types.GcImport(ctx.allImports, path)
+			pkg, err = gcimporter.Import(ctx.allImports, path)
 			if err != nil {
 				errors = append(errors, fmt.Errorf("Couldn't import %s: %s", path, err))
 				continue
